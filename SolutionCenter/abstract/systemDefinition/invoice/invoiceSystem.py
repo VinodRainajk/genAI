@@ -4,15 +4,14 @@ from SolutionCenter.abstract.baseSystem import BaseSystem
 from SolutionCenter.abstract.baseTool import BaseTool
 
 
-class CardsSystem(BaseSystem):
+class InvoiceSystem(BaseSystem):
 
-    System_Description_Value = (" This system is containing the details of credit Cards. The main operations that are releated to Credit card"
-                          "like inqury about the status of Credit card, if the card is blocked, If the card is expired, status of new credit cards. "
-                          "Address where it will be delivered, "
-                          "Limit of the current credit card ,"
-                          "When the new Credit Card will be delivered will be answered by this system")
+    System_Description_Value = (" This system is containing the details of invoices. The Main operations that can be performed here is that user will be able to:"
+                                "1: find the status of Invoice"
+                                "2: get the invoice amount "
+                                "3: where is the invoice pending for approval")
 
-    System_Name_value = "Credit Card"
+    System_Name_value = "Invoice"
 
     def __init__(self):
         super().__init__()
@@ -32,4 +31,4 @@ class CardsSystem(BaseSystem):
 
     @property
     def System_Name(self) -> str:
-        return self.__class__.System_Name_value  # Access the class attribute
+        return self.__class__.System_Name_value

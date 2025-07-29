@@ -17,6 +17,15 @@ class BaseSystem(ABC):
         """
         pass  # This should *not* be assigned a default value in the base class
 
+    @property
+    @abstractmethod
+    def System_Name(self) -> str:
+        """
+        Abstract property that *must* be overridden in subclasses to provide the system description.
+        """
+        pass  # This should *not* be assigned a default value in the base class
+
+
     def __init__(self):
         """
         Initializes the system. The description is accessed from the class-level DESCRIPTION attribute.
@@ -58,3 +67,9 @@ class BaseSystem(ABC):
         Method to retrieve the system's description.
         """
         return self.System_Description # Access the class-level System_Description
+
+    def get_system_Name(self) -> str:
+        """
+        Method to retrieve the system's description.
+        """
+        return self.System_Name # Access the class-level System_Description
