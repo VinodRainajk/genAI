@@ -15,13 +15,6 @@ class CardsSystem(BaseSystem):
     def __init__(self):
         super().__init__()
 
-    def add_tool(self, tool: BaseTool):
-       if not isinstance(tool, BaseTool):
-            raise TypeError("Tool must be an instance of BaseTool.")
-       self._tools[tool.Tool_Name] = tool
-
-    def get_all_tools_with_descriptions(self) -> list[tuple[str, str]]:
-        return super().get_all_tools_with_descriptions()
 
     def run_tool(self, tool: BaseTool, *args: Any, **kwargs: Any) -> Any:
         """

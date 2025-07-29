@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Dict, List, Tuple, Any
+from typing import Dict, List, Tuple, Any, Optional
 from SolutionCenter.abstract.baseTool import BaseTool
 
 
@@ -23,7 +23,7 @@ class BaseSystem(ABC):
         """
         self._tools: Dict[str, BaseTool] = {}  # Tool name -> BaseTool object
 
-    @abstractmethod
+
     def add_tool(self, tool: BaseTool):
         """
         Abstract method to register a tool with the system.  Accepts a BaseTool instance.
@@ -32,20 +32,26 @@ class BaseSystem(ABC):
             raise TypeError("Tool must be an instance of BaseTool.")
         self._tools[tool.Tool_Name] = tool # Use tool.NAME as the key
 
+    def get_all_tools_with_descriptions(self) -> list[Tuple[str, str]]:
+        """Returns a list of tuples, where each tuple contains the tool name and its description."""
+        tool_descriptions = []
+        for tool_name, tool in self._tools.items():
+            tool_descriptions.append(
+                (tool_name, tool.get_tool_description()))  # Assuming BaseTool has a Tool_Description property
+        return tool_descriptions
 
-    def get_all_tools_with_descriptions(self) -> List[Tuple[str, str]]:
+    def get_tool(self, tool_name: str) -> Optional[BaseTool]:
         """
-        Abstract method to get a list of all tools and their descriptions.
-        Returns a list of (tool_name, tool_description) tuples.
-        """
-        return [(tool.Tool_Name, tool.Tool_Description) for tool in self._tools.values()]
+        Retrieves a tool by its name.
 
-    @abstractmethod
-    def run_tool(self, tool: BaseTool, *args: Any, **kwargs: Any) -> Any:
+        Args:
+            tool_name: The name of the tool to retrieve.
+
+        Returns:
+            The tool object if found, otherwise None.
         """
-        Abstract method to run a specific tool (implementation-dependent). Accepts a BaseTool instance.
-        """
-        pass
+        return self._tools.get(tool_name)
+
 
     def get_system_description(self) -> str:
         """

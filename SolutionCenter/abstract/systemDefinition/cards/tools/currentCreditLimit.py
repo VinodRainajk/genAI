@@ -1,17 +1,18 @@
 from SolutionCenter.abstract.baseTool import BaseTool
 
-class CurrentCardStatus(BaseTool):
-    Tool_Name_Value  = "CreditCardStatus"
-    Tool_Description_Value  = ("This tool will identify the current status of the credit card.")
+
+class CurrentCreditLimit(BaseTool):
+    Tool_Name_Value  = "CreditCardLimit"
+    Tool_Description_Value  = ("This tool will help you check the limit of the Credit Card.")
 
     def __init__(self):
         super().__init__()
 
-    def execute(self) -> str:
+    def execute(self,args1: str) -> str:
         """
         Example implementation of the execute method.
         """
-        return "Card is currently blocked"
+        return "Card limit is 1 Million"
 
     @property
     def Tool_Name(self) -> str:

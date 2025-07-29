@@ -35,3 +35,9 @@ class BaseTool(ABC):
         Abstract method to execute the tool's functionality.  Accepts any number of arguments.
         """
         pass
+
+    def get_tool_description(self) -> str:
+        """
+        Method to retrieve the system's description.
+        """
+        return self.Tool_Description # Access the class-level System_Description
