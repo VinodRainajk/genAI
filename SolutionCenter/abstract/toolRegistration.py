@@ -1,3 +1,4 @@
+# --- Instantiate the tools ---
 from SolutionCenter.abstract.systemDefinition.cards.cardSystem import CardsSystem
 from SolutionCenter.abstract.systemDefinition.cards.tools.currentCardStatus import CurrentCardStatus
 from SolutionCenter.abstract.systemDefinition.cards.tools.currentCreditLimit import CurrentCreditLimit
@@ -5,27 +6,23 @@ from SolutionCenter.abstract.systemDefinition.invoice.invoiceSystem import Invoi
 from SolutionCenter.abstract.systemDefinition.invoice.tools.invoiceStatus import InvoiceStatus
 from SolutionCenter.abstract.systemDefinition.invoice.tools.paymentStatus import PaymentStatus
 
-cardSystem = CardsSystem()
-cardSystem.add_tool(CurrentCardStatus())
-cardSystem.add_tool(CurrentCreditLimit())
+card_system = CardsSystem()
+invoice_system = InvoiceSystem()
 
-invoiceSystem = InvoiceSystem()
-invoiceSystem.add_tool(InvoiceStatus())
-invoiceSystem.add_tool(PaymentStatus())
+card_system.add_tool(CurrentCardStatus())
+card_system.add_tool(CurrentCreditLimit())
+invoice_system.add_tool(InvoiceStatus())
+invoice_system.add_tool(PaymentStatus())
+
+# --- Build the tool list information string ---
+System_List_Info = ""  # Initialize as empty string
+System_List_Info += (
+    f"Tool Name: {card_system.System_Name}, Description: {card_system.System_Description}\n"
+)
+System_List_Info += f"Tool Name: {invoice_system.System_Name}, Description: {invoice_system.System_Description}\n"
 
 
-print("Card All Tool Description is -->",cardSystem.get_all_tools_with_descriptions())
-print("Card All Tool Description is -->",cardSystem.get_system_description())
-print( cardSystem.get_tool("CreditCardLimit").execute("1"))
-
-systems = {
-    cardSystem.get_system_Name(): cardSystem,
-    invoiceSystem.get_system_Name(): invoiceSystem,
+System_Map = {
+    card_system.System_Name: card_system,
+    invoice_system.System_Name: invoice_system,
 }
-
-# Iterate through the dictionary and print the system names and descriptions
-for system_name, system_object in systems.items():
-    print(f"System Name: {system_name}")
-    print(f"System Description: {system_object.get_system_description()}")
-    print(f"Tool list: {system_object.get_all_tools_with_descriptions()}")
-    print("-" * 20)
