@@ -41,12 +41,13 @@ class BaseSystem(ABC):
             raise TypeError("Tool must be an instance of BaseTool.")
         self._tools[tool.Tool_Name] = tool # Use tool.NAME as the key
 
-    def get_all_tools_with_descriptions(self) -> list[Tuple[str, str]]:
-        """Returns a list of tuples, where each tuple contains the tool name and its description."""
+    def get_all_tools_with_descriptions(self) -> List[str]:
+        """Returns a list of strings, where each string contains the tool name and its description."""
         tool_descriptions = []
         for tool_name, tool in self._tools.items():
             tool_descriptions.append(
-                (tool_name, tool.get_tool_description()))  # Assuming BaseTool has a Tool_Description property
+                f"Tool Name: {tool_name} , Description :{tool.get_tool_description()}"
+            )  # Assuming BaseTool has a get_tool_description() method
         return tool_descriptions
 
     def get_tool(self, tool_name: str) -> Optional[BaseTool]:

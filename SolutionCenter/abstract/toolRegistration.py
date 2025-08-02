@@ -3,6 +3,7 @@ from SolutionCenter.abstract.systemDefinition.cards.tools.currentCardStatus impo
 from SolutionCenter.abstract.systemDefinition.cards.tools.currentCreditLimit import CurrentCreditLimit
 from SolutionCenter.abstract.systemDefinition.invoice.invoiceSystem import InvoiceSystem
 from SolutionCenter.abstract.systemDefinition.invoice.tools.invoiceStatus import InvoiceStatus
+from SolutionCenter.abstract.systemDefinition.invoice.tools.paymentStatus import PaymentStatus
 
 cardSystem = CardsSystem()
 cardSystem.add_tool(CurrentCardStatus())
@@ -10,6 +11,7 @@ cardSystem.add_tool(CurrentCreditLimit())
 
 invoiceSystem = InvoiceSystem()
 invoiceSystem.add_tool(InvoiceStatus())
+invoiceSystem.add_tool(PaymentStatus())
 
 
 print("Card All Tool Description is -->",cardSystem.get_all_tools_with_descriptions())
