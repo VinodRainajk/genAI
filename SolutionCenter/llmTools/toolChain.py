@@ -20,7 +20,15 @@ def create_tools_identification_prompt(tool_descriptions):
                 "system",
                 "You are an intelligent Support center person with the following tools at your disposal:\n"
                 + tool_descriptions
-                + "You have to identify which system is best suited to respond to the query, you need to provide the system name that will be used.",
+                + "You have to identify which tool is best suited to respond to the query. Your response MUST be a JSON object with the following format:\n"
+                + "```json\n"
+                + "{\n"
+                + '  "tool_name": "the_name_of_the_tool",\n'
+                + '  "parameters": { "parameter1": "value1", "parameter2": "value2", ... }\n'
+                + "}\n"
+                + "```\n"
+                + "If a tool requires no parameters, the `parameters` field should be an empty object: `{}`.\n"
+                + "Ensure the JSON is valid and parsable. Do NOT include any text outside the JSON object.",
             ),
             MessagesPlaceholder(variable_name="messages"),
         ]
