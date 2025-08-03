@@ -1,8 +1,13 @@
 # toolChain.py
 import os
+
+from langchain_core.messages import AIMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
+
+from SolutionCenter.abstract.toolRegistration import System_Map
+from SolutionCenter.llmTools.systemChains import System_Identification_prompt
 
 load_dotenv()
 google_api_key = os.getenv("GOOGLE_API_KEY")
