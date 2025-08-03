@@ -59,4 +59,37 @@ def tool_identify_node(state):
     response = chain.invoke({"messages": messages})  # Pass the whole list of Messages
 
     print(f"TOOL_IDENTIFY node output: {response}")
-    return response  # Return the final response from the tool identification chain
+
+    # Extract JUST the tool name (You'll need to adjust this based on your LLM's output format)
+    # Assuming the LLM returns something like "Tool: CreditCardStatus"
+    full_response = response.content
+    if "**" in full_response:
+        tool_name = full_response.split("**")[1]  # Extract text between the **
+    else:
+        tool_name = full_response  # if no ** just return the full response
+
+    tool_name = tool_name.strip()  # Remove any extra spaces
+
+    return [AIMessage(content=tool_name)]  # Return a LIST containing the tool name
+
+
+def tool_execution_node(state):
+    print("Entering TOOL_EXECUTION node")
+    tool_name = state[-1].content  # Get the identified tool name
+    print(f"tool_name :{tool_name}")
+    # Find the tool in the System_Map
+    for system_name, system in System_Map.items():
+        tool = system.get_tool(tool_name)  # Assuming you have a get_tool method
+        if tool:
+            break
+    else:
+        raise ValueError(f"Tool '{tool_name}' not found in System_Map.")
+
+    # Execute the tool
+    try:
+        result = tool.execute()
+        print(f"Tool '{tool_name}' executed successfully.")
+    except Exception as e:
+        return f"Error executing tool '{tool_name}': {e}"
+
+    return result  # Pass the result
