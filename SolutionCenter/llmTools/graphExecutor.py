@@ -29,7 +29,7 @@ app = graph.compile()
 app.get_graph().draw_mermaid_png(output_file_path="flow.png")
 
 inputs = [
-    HumanMessage(content="Find me the employee id of vinod@example.com ")
+    HumanMessage(content="Find me the card limit id of employee with employee who has email id vinod@example.com")
 ]
 
 result = app.invoke(inputs)  # Pass the list of messages directly

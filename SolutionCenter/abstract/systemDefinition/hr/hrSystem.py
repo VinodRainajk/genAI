@@ -6,7 +6,7 @@ from SolutionCenter.abstract.baseTool import BaseTool
 
 class HrSystem(BaseSystem):
 
-    System_Description_Value = (" This system is containing the details of employees. The Main operations that can be performed here is that user will be able to:"
+    System_Description_Value = ("This system contains employee details. The Main operations that can be performed here is that user will be able to:"
                                 "1: find the employee id based on employee email")
 
 

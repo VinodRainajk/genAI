@@ -6,11 +6,11 @@ from SolutionCenter.abstract.baseTool import BaseTool
 
 class CardsSystem(BaseSystem):
 
-    System_Description_Value = (" This system is containing the details of credit Cards. The main operations that are releated to Credit card"
-                          "like inqury about the status of Credit card, if the card is blocked, If the card is expired, status of new credit cards. "
-                          "Address where it will be delivered, "
-                          "Limit of the current credit card ,"
-                          "When the new Credit Card will be delivered will be answered by this system")
+    System_Description_Value = (" This system is containing the details of credit Cards. The main operations that are related to Credit card for employee based on employee id"
+                                  "1 like inqury about the status of Credit card, if the card is blocked, If the card is expired, status of new credit cards. "
+                                  "2 Address where it will be delivered, "
+                                  "3 Limit of the current credit card ,"
+                                  "4 When the new Credit Card will be delivered will be answered by this system")
 
     System_Name_value = "Credit Card"
 

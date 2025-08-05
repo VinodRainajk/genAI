@@ -30,7 +30,7 @@ class BaseTool(ABC):
         pass #No initialization is needed
 
     @abstractmethod
-    def execute(self, *args: Any, **kwargs: Any) -> Any:
+    def execute(self, parameters: dict) -> Any:
         """
         Abstract method to execute the tool's functionality.  Accepts any number of arguments.
         """

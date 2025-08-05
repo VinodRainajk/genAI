@@ -7,22 +7,29 @@ class EmployeeSearch(BaseTool):
     def __init__(self):
         super().__init__()
 
-    def execute(self, employee_email: str) -> str:
+    def execute(self,  parameters: dict) -> str:
         """
         Fetches employee ID based on the provided email.
         You would typically query your data source here.
         """
+        # Extract the email from the parameters dictionary
+        employee_email = parameters.get('email_id')  # Use .get() to avoid KeyError
+
+        if not employee_email:
+            raise ValueError("email_id not provided in parameters")
+
         # Placeholder logic — replace with actual database lookup
         mock_employee_db = {
             "alice@example.com": "2001561",
             "bob@example.com": "2001562",
             "vinod@example.com": "2001563"
         }
-        employee_id = mock_employee_db.get(employee_email)
+        employee_id = mock_employee_db.get(employee_email) # Use the email to look up the employee ID
         if employee_id:
             return employee_id
         else:
             raise ValueError(f"No employee ID found for email: {employee_email}")
+
 
     @property
     def Tool_Name(self) -> str:
