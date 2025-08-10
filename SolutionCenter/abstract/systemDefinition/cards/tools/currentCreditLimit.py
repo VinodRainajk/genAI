@@ -3,7 +3,7 @@ from SolutionCenter.abstract.baseTool import BaseTool
 
 class CurrentCreditLimit(BaseTool):
     Tool_Name_Value  = "CreditCardLimit"
-    Tool_Description_Value  = ("This tool will help you check the limit of the Credit Card for the employee nased on employee id. You will hae to provide employee id as the parameter")
+    Tool_Description_Value  = ("This tool will help you check the limit of the Credit Card for the employee nased on employee id. You will have to provide employee id as the parameter")
 
     def __init__(self):
         super().__init__()
