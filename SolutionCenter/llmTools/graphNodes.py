@@ -91,48 +91,40 @@ def tool_Conditional_Parser(state):
     print("Entering TOOL_CONDITIONAL_PARSER node")
     messages = state
     system_description_list_str = messages[-1].content.replace("Tools List: ", "")
-
-    # safely evaluate string representation of list into actual python list
     operation_info_list = eval(system_description_list_str)
+    query_and_result = ""
+    while operation_info_list:
+        operation_info = operation_info_list[0]
+        operation_info_list = operation_info_list[1:]
+        messages[-1] = AIMessage(content=f"Tools List: {operation_info_list}")
 
-    if not operation_info_list:
-        print("No more system descriptions to process.")
-        return None  # End of the graph
+        system_name = operation_info.name
+        print(f"operation_info --> {operation_info}")
+        if system_name in System_Map:
+            system_details = System_Map[system_name]
+            tools_description = system_details.get_all_tools_with_descriptions()
+            actual_query_to_be_processed = operation_info.description
+            tools_description_with_context = ""
+            if query_and_result:
+                tools_description_with_context = f"{operation_info.description}. Tools: {tools_description}. Additional query results {query_and_result}"
+            else:
+                tools_description_with_context = f"{operation_info.description}. Tools: {tools_description}"
 
-    # Get the first operation info from the list
-    operation_info = operation_info_list[0]
+            try:
+                tool_info = tool_identify_node(tools_description_with_context)
+                result = tool_execution_node(tool_info)
+                print(f"result of the Tool Execution is {result}")
+                query_and_result = f"Executed the query {actual_query_to_be_processed} and got result {result}"
+                print(f"{query_and_result}")
+                messages.append(AIMessage(content=f"For the query {actual_query_to_be_processed} and got result {result}"))
+            except Exception as e:
+                messages.append(AIMessage(content=f"Error during tool identification or execution: {e}"))
+        else:
+            print(f"System '{system_name}' not found in System_Map.")
+            messages.append(AIMessage(content=f"System '{system_name}' not found in System_Map."))
 
-    # Remove the processed operation info from the list
-    operation_info_list = operation_info_list[1:]
-
-    # Store the updated list back in the messages (for the next iteration)
-    messages[-1] = AIMessage(content=f"Tools List: {operation_info_list}")
-
-    # loop step 1) Search the name in the System_Map, If the name exist the extract the system_details = System_Map.get(system_name)
-    system_name = operation_info.name
-    if system_name in System_Map:
-        system_details = System_Map[system_name]
-        #loop step 2)  tools_description = system_details.get_all_tools_with_descriptions()
-        tools_description = system_details.get_all_tools_with_descriptions()
-
-         #loop step 3) append the description of operation_info_list   to this tools_description.
-        tools_description_with_context = f"{operation_info.description}. Tools: {tools_description}"
-
-        # loop step 4) This is then passed to tool_identify_node.
-        try:
-            tool_info = tool_identify_node(tools_description_with_context) #get response
-            result = tool_execution_node(tool_info) #exeucte
-             #append message
-            messages.append(AIMessage(content=f"Executed {tool_info} and got {result}"))
-        except Exception as e:
-            messages.append(AIMessage(content=f"Error during tool identification or execution: {e}"))
-        return messages #always return to the state
-
-    else:
-        print(f"System '{system_name}' not found in System_Map.")
-        messages.append(AIMessage(content=f"System '{system_name}' not found in System_Map."))
-        # If system not found, continue with the next one
-        return messages #always return to state
+    print("All operations processed.")
+    return messages
 
 
 def tool_identify_node(request):

@@ -23,7 +23,7 @@ class CurrentCreditLimit(BaseTool):
         mock_card_db = {
             "2001561": "10000",
             "2001562": "20000",
-            "2001563": "30000"
+            "2001563": "64646"
         }
         card_limit = mock_card_db.get(employee_employeeid)  # Use the email to look up the employee ID
         if card_limit:
