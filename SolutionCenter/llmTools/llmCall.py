@@ -8,7 +8,7 @@ google_api_key = os.getenv("GOOGLE_API_KEY")
 
 
 LLM_MODEL = ChatGoogleGenerativeAI(
-    model="gemini-1.5-flash",
+    model="gemini-2.0-flash",
     google_api_key=google_api_key,
     temperature=0.1,
 )

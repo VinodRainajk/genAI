@@ -57,7 +57,8 @@ def tool_extract_node(state):
 
     try:
         data = json.loads(json_response)
-        systems = data.get("systems")
+        #systems = data.get("systems")
+        systems = data
     except json.JSONDecodeError as e:
         raise ValueError(f"Error decoding JSON: {e}")
     except AttributeError as e:

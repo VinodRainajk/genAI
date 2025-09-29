@@ -7,7 +7,7 @@ class InvoiceStatus(BaseTool):
     def __init__(self):
         super().__init__()
 
-    def execute(self) -> str:
+    def execute(self,  parameters: dict) -> str:
         """
         Example implementation of the execute method.
         """

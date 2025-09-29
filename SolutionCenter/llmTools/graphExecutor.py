@@ -28,10 +28,10 @@ graph.add_edge(TOOL_EXTRACT, TOOL_CONDITON)
 graph.set_entry_point(SYSTEM_IDENTIFY)  # Start at the system identification node
 
 app = graph.compile()
-app.get_graph().draw_mermaid_png(output_file_path="flow.png")
+#app.get_graph().draw_mermaid_png(output_file_path="flow.png")
 
 inputs = [
-    HumanMessage(content="Find me the card limit id of employee with employee who has email id vinod@example.com")
+    HumanMessage(content="Find me  employee id of vinod@example.com ")
 ]
 
 result = app.invoke(inputs)  # Pass the list of messages directly
